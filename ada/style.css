@@ -51,7 +51,7 @@ img{
     width: 100%;
 }
 
-.panel-body{
+.panel-body, .modal-body{
     background-color: #57a4be;
     color:rgb(252, 254, 254);
     text-align: left;
@@ -59,7 +59,7 @@ img{
     width: 100%;
 }
 
-.panel-footer{
+.panel-footer, .modal-footer{
     background-color: #97b8d7;
     color:rgb(33, 49, 49);
     text-align: left;
@@ -67,7 +67,8 @@ img{
     width: 100%;
 }
 
-.panel-title{
+.panel-title, .modal-header{
+    background-color: #2051ac;
     color:azure;
     font-size: larger;
     font-weight: bolder;
@@ -79,16 +80,6 @@ img{
     text-align: left;
 }
 
-.btn-primary{
-    color:#3a3a3a;
-}
-
-#form-edit{
-    background-color: #57a4be;
-    color:rgb(252, 254, 254);
-}
-input[type="text"],input[type="date"],input[type="time"], textarea {
-    background-color: #57a4be;
-    color:rgb(252, 254, 254);
+.form-control {
     border: transparent; 
   }

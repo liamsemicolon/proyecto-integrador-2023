@@ -22,18 +22,17 @@
             </div>
         </div>
     </nav>
-<body>
 <p>
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a class="panel-title" data-bs-toggle="collapse" href="#collapse"> Nuevo evento </a>
+                    <a class="panel-title" data-bs-toggle="collapse" href="#collapse">Nuevo evento</a>
                 </div>
                 <div id="collapse" class="panel-collapse collapse">
                     <div class="panel-body">
                     <form>
                         <input type="text" id="titulo" name="titulo" class="form-control" placeholder="Nombre de evento"/>
-                        <input type="text" id="desc "name="desc" class="form-control" placeholder="Descripción de evento"/>
+                        <textarea id="desc" name="desc" class="form-control" placeholder="Descripción de evento"></textarea>
                         <div class="d-flex justify-content-center">
                         <input type="datetime-local" id="fechahora" name="fechahora">
                         </div>
