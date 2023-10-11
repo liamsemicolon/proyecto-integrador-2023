@@ -1,5 +1,5 @@
 # proyecto-integrador-2023
-Proyecto integrador para Generación T. Una página que muestra información relevante sobre fechas importantes en el ciclo lectivo, por y para estudiantes de nuestro curso.
+Proyecto integrador para Generación T. Una página que permite administrar los períodos de vacaciones, considerando antigüedad y otros factores que pueden entrar en juego.
 
 # Modo de uso
 Para probarlo con el motor de base de datos XAMPP. Debes tener los documentos ".php" dentro de la carpeta "htdocs" en donde tengas instalado XAMPP.
