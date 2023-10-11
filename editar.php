@@ -6,6 +6,6 @@ $opcionSeleccionada = $_POST["opciones"];
 $conn = conectar();
 $query = "UPDATE `vacaciones` SET `autorizadas_vacaciones` = '" . $opcionSeleccionada . "' WHERE `vacaciones`.`id_vacaciones` =" . $id; 
 $result = mysqli_query($conn, $query);
-header("Location: main.php");
+header("Location: admin.php");
 desconectar();
 ?>

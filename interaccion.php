@@ -18,13 +18,14 @@ function construirEventos($conn, $query){
 
         
         if ($evaluacion == 1) {
-            $estado = "Aprobada";
+            $estado = "Autorizadas";
         } elseif ($evaluacion == 2) {
-            $estado = "Denegada";
+            $estado = "Rechazadas";
         } else {
-            $estado = "Por evaluar";
+            $estado = "A evaluar";
             $puedeEvaluar = true;
         }
+
         #Cuerpo del objeto vacaciones
         echo '<p>
         <div class="panel-group">
@@ -104,5 +105,65 @@ function botones($id, $puedeEvaluar){
       </div>';
     }
 }
+
+function estadoVacaciones($int){
+    $estado = "";
+    if($int == 0){
+        $estado = "A evaluar";
+    } elseif ($int == 1){
+        $estado = "Autorizadas";
+    } elseif($int == 2){
+        $estado = "Rechazadas";
+    }
+    return $estado;
+}
+
+function diasVacaciones($conn, $id){
+    $query = "SELECT DATEDIFF(CURDATE(), ingreso_empleado) AS 'dias' FROM empleados WHERE id_empleado =" . $id;
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $total = $row['dias'];
+    $dias = 0;
+    if($total >= 28 && $total<= 55){
+        $dias = 1;
+    }elseif($total >= 56 && $total <= 83) {
+        $dias = 2;
+    }elseif($total >= 84 && $total <= 111) {
+        $dias = 3;
+    }elseif($total >= 112 && $total <= 139) {
+        $dias = 4;
+    }elseif($total >= 140 && $total <= 179) {
+        $dias = 5;
+    }elseif($total >= 180 && $total <= 1825) {
+        $dias = 14;
+    }elseif($total >= 1826 && $total <= 3650) {
+        $dias = 21;
+    }elseif($total >= 3651 && $total <= 7300) {
+        $dias = 28;
+    }elseif($total >= 7301) {
+        $dias = 35;
+    }
+    return $dias;
+}
+
+function periodoVacaciones($dias){
+    $periodo = 0;
+    if($dias <=5){
+        $periodo = $dias;
+    } elseif($dias > 5){
+        $periodo = 7;
+    }
+    return $periodo;
+}
+
+function diasRestantes($conn, $id, $dias){
+    $query = "SELECT SUM(DATEDIFF(a.fin_vacaciones, a.inicio_vacaciones)) AS 'dias' FROM vacaciones a INNER JOIN empleados b ON a.id_empleado = b.id_empleado WHERE a.id_empleado =" . $id;
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $total = $row['dias'];
+    $resultado = $dias - $total;    
+    return $resultado;
+}
+
 ?>
 

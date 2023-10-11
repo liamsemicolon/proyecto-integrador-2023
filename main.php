@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es-AR">
 <head>
@@ -6,14 +9,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js" crossorigin="anonymous"></script>
     <link rel="icon" href="img/favicon.png">
-    <title>ADV - Administrador de Vacaciones    
-    </title>
+    <script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js" crossorigin="anonymous"></script>
+    <title>ADV - Administrador de Vacaciones</title>
 </head>
-
-<!--Barra de Navegacion-->
 <body>
+    <?php
+    if ($_SESSION["exito"] == 0){
+        echo '<script>alert("Inserte una fecha válida")</script>';
+    };
+    ?>
     <nav class="navbar navbar-expand-lg navbar-dark text-uppercase">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img src="img/favicon.png" id="icono">Administrador de Vacaciones</a>
@@ -25,64 +30,58 @@
             </div>
         </div>
     </nav>
-
-    <!--Seccion de Vacaciones-->
-<!-- <p> 
-    Panel para subir eventos (desactualizado)
+<p>
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a class="panel-title" data-bs-toggle="collapse" href="#collapse">Nuevo evento</a>
+                    <a class="panel-title" data-bs-toggle="collapse" href="#collapse">Nuevo período de vacaciones</a>
                 </div>
                 <div id="collapse" class="panel-collapse collapse">
                     <div class="panel-body">
                     <form>
-                        <input type="text" id="titulo" name="titulo" class="form-control" placeholder="Nombre de evento"/>
-                        <textarea id="desc" name="desc" class="form-control" placeholder="Descripción de evento"></textarea>
+                        <p>
+                        <?php
+                        include "conexion.php";
+                        include 'interaccion.php';
+                        $conn = conectar();
+                        $id = $_SESSION["id"];
+                        $diasVacaciones = diasVacaciones($conn, $id);
+                        $periodo = periodoVacaciones($diasVacaciones);
+                        $restantes = diasRestantes($conn, $id, $diasVacaciones);
+                        $botonDeshabilitado = "";
+                        if($restantes <= 0){
+                            $botonDeshabilitado = "disabled";
+                        }
+                        echo "Período de vacaciones: ". $periodo . " días<br>Días restantes: " . $restantes . " de " . $diasVacaciones;
+                        echo '
+                        </p>
+                        Fecha de comienzo de vacaciones:<br>
                         <div class="d-flex justify-content-center">
-                        <input type="datetime-local" id="fechahora" name="fechahora">
+                        <input type="date" id="fecha" name="fecha" ' . minimoFecha($conn, $id) . $botonDeshabilitado . '>
+                        <input type="hidden" id="duracion" name="duracion" value="' . $periodo . '">
+                        <input type="hidden" id="id" name="id" value="' . $id . '">
                         </div>
-                      </div>
-                      <div class="d-flex justify-content-center">
-                        <button type="submit" formmethod="post" formaction="insert.php" class="btn btn-dark mb-3">Enviar</button>
                         </div>
-                    </div>
-                    </form>
+                        <div class="d-flex justify-content-center">
+                        <button type="submit" formmethod="post" formaction="insert.php" class="btn btn-dark mb-3" ' . $botonDeshabilitado . '>Enviar</button>
+                        </div>
+                        </div>
+                        </form>
+                        ';
+                        desconectar($conn);
+                        ?> 
                 </div>
             </div>
         </div>
-</p>
--->
-    <div class="titulo">
-        <h1 c>Lista de Vacaciones</h1>
-        <hr>
-    </div>
-
-    <h2>Vacaciones Proximas:
+        </p>
+    <h2>Vacaciones:
     </h2>
-    <!-- Query para las vacaciones futuros-->
     <?php
-        include "conexion.php";
-        include "interaccion.php";
+
         $conn = conectar();
-        $query = "SELECT `vacaciones`.*, `nombre_empleado`, `apellido_empleado` FROM `vacaciones` INNER JOIN `empleados` WHERE vacaciones.id_empleado = empleados.id_empleado AND `inicio_vacaciones` > NOW() AND `fin_vacaciones` > NOW() ORDER BY `fin_vacaciones` ASC;";
-
+        $query = "SELECT * FROM `vacaciones` WHERE `id_empleado` = " . $_SESSION["id"] . " ORDER BY `autorizadas_vacaciones` ASC";
         construirEventos($conn, $query);
-    ?>
-    <h2>Vacaciones vigentes:
-    </h2>
-    <!-- Query para las vacaciones presentes-->
-    <?php
-        $query = "SELECT `vacaciones`.*, `nombre_empleado`, `apellido_empleado` FROM `vacaciones` INNER JOIN `empleados` WHERE vacaciones.id_empleado = empleados.id_empleado AND `inicio_vacaciones` < NOW() AND `fin_vacaciones` > NOW() ORDER BY `fin_vacaciones` ASC;";
-        construirEventos($conn, $query);
-        ?>
-
-    <h2>Vacaciones Pasadas:
-    </h2>
-    <!-- Query para las vacaciones pasadas no hace mas de un mes-->
-    <?php
-        $query = "SELECT `vacaciones`.*, `nombre_empleado`, `apellido_empleado` FROM `vacaciones` INNER JOIN `empleados` WHERE vacaciones.id_empleado = empleados.id_empleado AND `inicio_vacaciones` < NOW() AND `fin_vacaciones` < NOW() AND MONTH(`fin_vacaciones`) = MONTH(NOW()) ORDER BY `fin_vacaciones` ASC;";
-        construirEventos($conn, $query);
+        desconectar($conn);
     ?>
 </body>
 </html>
