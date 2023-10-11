@@ -1,0 +1,93 @@
+body {
+    background-color: gainsboro;
+    font-family: Arvo;
+}
+
+@font-face {
+    font-family: Arvo;
+    src: url(res/Arvo-Regular.ttf);
+  }
+
+main {
+    text-align: center;
+    margin-top: 1in;
+}
+
+.caja-form {
+    background-color: #BFBFBF;
+
+    border-radius: 10px;
+    border: 3px solid rgb(44, 44, 44);
+    text-align: center;
+    max-width: 300px;
+    width: 100%;
+}
+
+div.titulo {
+    text-align: center;
+    max-width: 80%;
+    padding-top: 20px;
+    margin: auto;
+}
+
+hr {
+    color: #3a3a3a;
+}
+
+nav{
+    background-color: #293c7c;
+}
+
+img{
+    margin:auto;
+    width: 75%;
+}
+
+#icono{
+    width: auto;
+    max-height: 75px;
+}
+
+.panel-group {
+    background-color: #2051ac;
+    color:azure;
+    border-radius: 10px;
+    text-align: left;
+    max-width: 80%;
+    margin: auto;
+    width: 100%;
+}
+
+.panel-body, .modal-body{
+    background-color: #57a4be;
+    color:rgb(252, 254, 254);
+    text-align: left;
+    margin: auto;
+    width: 100%;
+}
+
+.panel-footer, .modal-footer{
+    background-color: #97b8d7;
+    color:rgb(33, 49, 49);
+    text-align: left;
+    margin: auto;
+    width: 100%;
+}
+
+.panel-title, .modal-header{
+    background-color: #2051ac;
+    color:azure;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+#id-tag{
+    color:rgb(65, 104, 104);
+    font-size: small;
+    text-align: left;
+}
+
+.form-control {
+    border: transparent; 
+  }
+
