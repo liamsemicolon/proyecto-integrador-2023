@@ -21,7 +21,11 @@ session_start();
     ?>
     <nav class="navbar navbar-expand-lg navbar-dark text-uppercase">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="img/favicon.png" id="icono">Administrador de Vacaciones</a>
+            <a class="navbar-brand" href="#"><img src="img/favicon.png" id="icono"><?php
+            include "conexion.php";
+            include 'interaccion.php';
+            $conn = conectar();
+            echo devolverNombre($conn, $_SESSION["id"]) ?></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -41,9 +45,6 @@ session_start();
                     <form>
                         <p>
                         <?php
-                        include "conexion.php";
-                        include 'interaccion.php';
-                        $conn = conectar();
                         $id = $_SESSION["id"];
                         $diasVacaciones = diasVacaciones($conn, $id);
                         $periodo = periodoVacaciones($diasVacaciones);

@@ -142,4 +142,13 @@ function minimoFecha($conn, $id){
     $minimo = 'min = "'. $fF. '"';
     return $minimo;
 }
+
+function devolverNombre($conn, $id){
+    $query ="SELECT apellido_empleado, nombre_empleado FROM empleados WHERE id_empleado =" . $id;
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $ape = $fFBD = $row['apellido_empleado'];
+    $nom = $fFBD = $row['nombre_empleado'];
+    return $ape . ", " . $nom;
+}
 ?>
