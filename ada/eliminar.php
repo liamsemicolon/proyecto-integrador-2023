@@ -1,7 +1,7 @@
 <?php
 include 'conexion.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $query = "DELETE FROM `eventos` WHERE `id_evento` = " . $_POST['id-a-eliminar'];
+    $query = "DELETE FROM `vacaciones` WHERE `id_vacaciones` = " . $_POST['id-a-eliminar'];
     $conn = conectar();
     if (isset($_POST['id-a-eliminar'])) {
         $eventId = $_POST['id-a-eliminar'];
