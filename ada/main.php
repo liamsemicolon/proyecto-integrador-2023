@@ -15,7 +15,7 @@ session_start();
 </head>
 <body>
     <?php
-    if ($_SESSION["exito"] == 0){
+    if (isset($_SESSION["exito"]) && $_SESSION["exito"] == 0){
         echo '<script>alert("Inserte una fecha válida")</script>';
     };
     ?>
@@ -32,6 +32,16 @@ session_start();
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
             </div>
+            <?php
+                if(isset($_SESSION["admin"]) && $_SESSION["admin"] == 1){
+                    
+                    echo '<ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin.php">Volver a menú de gestión</a>
+                    </li>
+                    </ul>';
+                }
+            ?>
         </div>
     </nav>
 <p>
