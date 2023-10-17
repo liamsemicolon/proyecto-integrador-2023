@@ -1,6 +1,8 @@
 <?php
 session_start();
-$_SESSION["incorrecto"] == 0;
+if (!isset($_SESSION["incorrecto"])){
+    $_SESSION["incorrecto"] = 0;
+}
 ?>
 <html>
     <head>
