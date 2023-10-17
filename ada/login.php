@@ -12,8 +12,10 @@ if($cant_filas == 1) {
     $_SESSION["incorrecto"] = 0;
     $_SESSION["id"] = $row["id_empleado"];
     if($row['esgerente_user'] == 0){
+        $_SESSION["admin"] = 0;
         header("Location: main.php");
     } else {
+        $_SESSION["admin"] = 1;
         header("Location: admin.php");
     }
 } else {    
