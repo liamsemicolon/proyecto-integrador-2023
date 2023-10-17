@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION["exito"] = 1;
 ?>
 <!DOCTYPE html>
 <html lang="es-AR">
