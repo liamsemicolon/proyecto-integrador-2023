@@ -1,6 +1,8 @@
 <?php
 include 'conexion.php';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+session_start();
+if ($_SERVER['REQUEST_METHOD'] 
+== 'POST') {
     $query = "DELETE FROM `vacaciones` WHERE `id_vacaciones` = " . $_POST['id-a-eliminar'];
     $conn = conectar();
     if (isset($_POST['id-a-eliminar'])) {
@@ -8,6 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = mysqli_query($conn, $query);
         desconectar($conn);
     }
-    header("Location: main.php");
+    if($_SESSION["admin"] == 1){
+        header("Location: admin.php");
+    } else{
+        header("Location: main.php");
+    }
 }
 ?>
