@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-10-2023 a las 21:05:32
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 24-10-2023 a las 21:52:47
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,16 +32,17 @@ CREATE TABLE `empleados` (
   `dni_empleado` int(10) UNSIGNED NOT NULL,
   `apellido_empleado` varchar(25) NOT NULL,
   `nombre_empleado` varchar(25) NOT NULL,
-  `ingreso_empleado` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `ingreso_empleado` date NOT NULL,
+  `esgerente_empleado` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `empleados`
 --
 
-INSERT INTO `empleados` (`id_empleado`, `dni_empleado`, `apellido_empleado`, `nombre_empleado`, `ingreso_empleado`) VALUES
-(1, 11111111, 'GERENTOSO', 'Gerente', '2003-09-06'),
-(3, 22222222, 'EMPLEADOSO', 'Empleado', '2020-10-15');
+INSERT INTO `empleados` (`id_empleado`, `dni_empleado`, `apellido_empleado`, `nombre_empleado`, `ingreso_empleado`, `esgerente_empleado`) VALUES
+(1, 11111111, 'GERENTOSO', 'Gerente', '2003-09-06', 1),
+(3, 22222222, 'EMPLEADOSO', 'Empleado', '2020-10-15', 0);
 
 -- --------------------------------------------------------
 
@@ -52,17 +53,16 @@ INSERT INTO `empleados` (`id_empleado`, `dni_empleado`, `apellido_empleado`, `no
 CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
   `nombre_user` varchar(20) NOT NULL,
-  `esgerente_user` tinyint(1) NOT NULL,
   `id_empleado` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id_user`, `nombre_user`, `esgerente_user`, `id_empleado`) VALUES
-(1, 'admin', 1, 1),
-(4, 'empleado', 0, 3);
+INSERT INTO `users` (`id_user`, `nombre_user`, `id_empleado`) VALUES
+(1, 'admin', 1),
+(4, 'empleado', 3);
 
 -- --------------------------------------------------------
 
@@ -76,15 +76,14 @@ CREATE TABLE `vacaciones` (
   `fin_vacaciones` date NOT NULL,
   `autorizadas_vacaciones` tinyint(1) NOT NULL,
   `id_empleado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `vacaciones`
 --
 
 INSERT INTO `vacaciones` (`id_vacaciones`, `inicio_vacaciones`, `fin_vacaciones`, `autorizadas_vacaciones`, `id_empleado`) VALUES
-(4, '2023-10-25', '2023-11-01', 0, 3),
-(7, '2023-11-20', '2023-11-27', 0, 3);
+(19, '2014-10-02', '2018-11-07', 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -132,7 +131,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `vacaciones`
 --
 ALTER TABLE `vacaciones`
-  MODIFY `id_vacaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_vacaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas

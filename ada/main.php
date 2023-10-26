@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION["incorrecto"])){
+    header("Location: login.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="es-AR">
@@ -68,7 +71,7 @@ session_start();
                         </p>
                         Fecha de comienzo de vacaciones:<br>
                         <div class="d-flex justify-content-center">
-                        <input type="date" id="fecha" name="fecha" ' . minimoFecha($conn, $id) . $botonDeshabilitado . '>
+                        <input type="date" id="fecha" name="fecha" ' . minimoFecha($conn, $id) . $botonDeshabilitado . ' required>
                         <input type="hidden" id="duracion" name="duracion" value="' . $periodo . '">
                         <input type="hidden" id="id" name="id" value="' . $id . '">
                         </div>
